@@ -20,5 +20,16 @@
   "bugs": {
     "url": "https://github.com/valet-io/sinon-as-promised/issues"
   },
-  "homepage": "https://github.com/valet-io/sinon-as-promised"
+  "homepage": "https://github.com/valet-io/sinon-as-promised",
+  "devDependencies": {
+    "mocha-as-promised": "~2.0.0",
+    "chai-as-promised": "~4.1.1",
+    "bluebird": "~1.0.8",
+    "chai": "~1.9.0",
+    "sinon": "~1.9.0",
+    "mocha": "~1.17.1"
+  },
+  "peerDependencies": {
+    "sinon": "1.x.x"
+  }
 }
