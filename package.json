@@ -1,0 +1,24 @@
+{
+  "name": "sinon-as-promised",
+  "version": "0.0.0",
+  "description": "Sugar methods for sinon.js stubs for working with promises",
+  "main": "sinon-as-promised.js",
+  "scripts": {
+    "test": "mocha test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/valet-io/sinon-as-promised.git"
+  },
+  "keywords": [
+    "sinon",
+    "promises",
+    "test"
+  ],
+  "author": "Ben Drucker <bvdrucker@gmail.com> (http://www.bendrucker.me/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/valet-io/sinon-as-promised/issues"
+  },
+  "homepage": "https://github.com/valet-io/sinon-as-promised"
+}
