@@ -35,10 +35,6 @@ describe('sinon-as-promised', function () {
     expect(sinonAsPromised).to.throw(/Promise/);
   });
 
-  it('references the Promise constructor on sinon', function () {
-    expect(sinon).to.have.property('__Promise', Promise);
-  });
-
   describe('stub', function () {
 
     var stub;

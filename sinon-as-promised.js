@@ -22,11 +22,10 @@ module.exports = function (Promise) {
   if (!Promise) {
     throw new Error('A Promise constructor must be provided');
   }
-  sinon.__Promise = Promise;
   sinon.stub.resolves = function (value) {
-    return internals.resolves.call(this, sinon.__Promise, value);
+    return internals.resolves.call(this, Promise, value);
   };
   sinon.stub.rejects = function (err) {
-    return internals.rejects.call(this, sinon.__Promise, err);
+    return internals.rejects.call(this, Promise, err);
   };
 };
