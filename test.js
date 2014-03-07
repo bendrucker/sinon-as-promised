@@ -28,11 +28,11 @@ describe('sinon-as-promised', function () {
   });
 
   before(function () {
-    sinonAsPromised(sinon, Promise);
+    sinonAsPromised(Promise);
   });
 
   it('requires a Promise constructor', function () {
-    expect(sinonAsPromised.bind(null, sinon)).to.throw(/Promise/);
+    expect(sinonAsPromised).to.throw(/Promise/);
   });
 
   it('references the Promise constructor on sinon', function () {

@@ -17,7 +17,8 @@ internals.rejects = function (Promise, err) {
   }));
 };
 
-module.exports = function (sinon, Promise) {
+module.exports = function (Promise) {
+  var sinon = require('sinon');
   if (!Promise) {
     throw new Error('A Promise constructor must be provided');
   }
