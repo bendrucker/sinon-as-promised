@@ -9,4 +9,4 @@ deploy:
     secure: DIZ2pHDWgkc8yHXsZ5d0y1021M65upmJZm9vTv3GmkvbDT7b7dtDXwcu1VmSSwWP58uO/tdBgYf/CSW2dO1mCeRhLma9onmmCi6eGHY+CeaS6YtZ4QkSeM1JL+Yj9cS6oZBLyRPUBSMpGoGm67571cY/NchTwSaxrt9ERtcR46U=
   on:
     tags: true
-    repo: valet-io/sinon-as-promised
+    repo: bendrucker/sinon-as-promised

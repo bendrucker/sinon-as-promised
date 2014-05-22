@@ -1,4 +1,4 @@
-sinon-as-promised [![Build Status](https://travis-ci.org/valet-io/sinon-as-promised.png)](https://travis-ci.org/valet-io/sinon-as-promised) [![NPM version](https://badge.fury.io/js/sinon-as-promised.png)](http://badge.fury.io/js/sinon-as-promised)
+sinon-as-promised [![Build Status](https://travis-ci.org/bendrucker/sinon-as-promised.png)](https://travis-ci.org/bendrucker/sinon-as-promised) [![NPM version](https://badge.fury.io/js/sinon-as-promised.png)](http://badge.fury.io/js/sinon-as-promised)
 =================
 
 Sugar methods for using sinon.js stubs with promises.

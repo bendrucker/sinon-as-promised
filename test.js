@@ -2,8 +2,6 @@
 
 'use strict';
 
-require('mocha-as-promised')();
-
 var chai   = require('chai');
 var expect = chai.expect;
 

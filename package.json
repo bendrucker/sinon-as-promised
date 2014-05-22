@@ -1,6 +1,6 @@
 {
   "name": "sinon-as-promised",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Sugar methods for using sinon.js stubs with promises",
   "main": "sinon-as-promised.js",
   "scripts": {
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/valet-io/sinon-as-promised.git"
+    "url": "git://github.com/bendrucker/sinon-as-promised.git"
   },
   "keywords": [
     "sinon",
@@ -18,16 +18,15 @@
   "author": "Ben Drucker <bvdrucker@gmail.com> (http://www.bendrucker.me/)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/valet-io/sinon-as-promised/issues"
+    "url": "https://github.com/bendrucker/sinon-as-promised/issues"
   },
-  "homepage": "https://github.com/valet-io/sinon-as-promised",
+  "homepage": "https://github.com/bendrucker/sinon-as-promised",
   "devDependencies": {
-    "mocha-as-promised": "~2.0.0",
     "chai-as-promised": "~4.1.1",
     "bluebird": "~1.0.8",
     "chai": "~1.9.0",
     "sinon": "~1.9.0",
-    "mocha": "~1.17.1"
+    "mocha": "~1.19.0"
   },
   "peerDependencies": {
     "sinon": "1.x.x"
