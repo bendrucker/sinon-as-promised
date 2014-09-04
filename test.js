@@ -14,15 +14,8 @@ var sinonAsPromised = require('./sinon-as-promised');
 
 describe('sinon-as-promised', function () {
 
-  var throwUnhandled = function (handler) {
-    handler = handler || function (err) {
-      throw err;
-    };
-    Promise.onPossiblyUnhandledRejection(handler);
-  };
-
-  before(function () {
-    throwUnhandled();
+  Promise.onPossiblyUnhandledRejection(function (err) {
+    throw err;
   });
 
   before(function () {
@@ -64,25 +57,24 @@ describe('sinon-as-promised', function () {
 
     describe('#rejects', function () {
 
+      function isErr (error) {
+        return error === err;
+      }
+
+      function noop () {}
+
+      function ignoreErr () {
+        stub.defaultBehavior.returnValue.catch(isErr, noop);
+      }
+
       var err;
       beforeEach(function () {
         err = new Error();
         stub.rejects(err);
       });
 
-      before(function () {
-        // if the unhandled err is the one we rejected with, we can ignore it
-        // otherwise we'd have to handle errors inside each expectation
-        throwUnhandled(function (error) {
-          if (error !== err) throw error;
-        });
-      });
-
-      after(function () {
-        throwUnhandled();
-      });
-
       it('sets the returnValue to the promise', function () {
+        ignoreErr();
         expect(stub.defaultBehavior.returnValue).to.itself.respondTo('then');
       });
 
@@ -91,11 +83,13 @@ describe('sinon-as-promised', function () {
       });
 
       it('can reject with an error message', function () {
+        ignoreErr();
         stub.rejects('Rejection');
         return expect(stub()).to.be.rejectedWith('Rejection');
       });
 
       it('can be chained normally', function () {
+        ignoreErr();
         expect(stub).to.itself.respondTo('withArgs');
       });
 
