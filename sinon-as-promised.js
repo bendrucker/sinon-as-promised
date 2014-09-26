@@ -23,4 +23,6 @@ module.exports = function (Promise) {
     }));
   };
 
+  return sinon;
+
 };

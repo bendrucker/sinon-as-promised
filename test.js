@@ -26,6 +26,10 @@ describe('sinon-as-promised', function () {
     expect(sinonAsPromised).to.throw(/Promise/);
   });
 
+  it('returns sinon for convenience', function () {
+    expect(sinonAsPromised(Promise)).to.equal(sinon);
+  });
+
   describe('stub', function () {
 
     var stub;
