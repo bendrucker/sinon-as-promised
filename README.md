@@ -15,16 +15,24 @@ You can use any promise library you'd like that exposes a constructor. You'll on
 ## Usage
 
 #### `stub.resolves(value)`
-When called, the stub will return a promise which resolves with the provided `value`. 
+When called, the stub will return a promise which resolves with the provided `value`.
 
 ```js
-stub.resolves('foo')().then(function (value) {
+f = sinon.stub();
+f.resolves('foo');
+
+f().then(function (value) {
     // value === 'foo'
+});
+
+f.onCall(0).resolves('bar')
+f().then(function (value) {
+    // value === 'bar'
 });
 ```
 
 #### `stub.rejects(error)`
-When called, the stub will return a promise which rejects with the provided `error`. If `error` is a string, it will be set as the error message. 
+When called, the stub will return a promise which rejects with the provided `error`. If `error` is a string, it will be set as the error message.
 
 ```js
 stub.rejects(new Error('foo'))().catch(function (error) {
@@ -32,6 +40,12 @@ stub.rejects(new Error('foo'))().catch(function (error) {
 });
 stub.rejects('foo')().catch(function (error) {
     // error.message === 'foo'
+});
+
+f = sinon.stub();
+f.onCall(0).rejects('bar');
+f().catch(function (error) {
+    // error.message === 'bar'
 });
 ```
 

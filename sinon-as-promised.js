@@ -8,13 +8,17 @@ module.exports = function (Promise) {
     throw new Error('A Promise constructor must be provided');
   }
 
-  sinon.stub.resolves = function (value) {
+  var resolves = function (value) {
     return this.returns(new Promise(function (resolve) {
       process.nextTick(resolve.bind(null, value));
     }));
   };
 
-  sinon.stub.rejects = function (err) {
+  sinon.stub.resolves = resolves
+  sinon.behavior.resolves = resolves
+
+
+  var rejects = function (err) {
     if (typeof err === 'string') {
       err = new Error(err);
     }
@@ -22,6 +26,10 @@ module.exports = function (Promise) {
       process.nextTick(reject.bind(null, err));
     }));
   };
+
+  sinon.stub.rejects = rejects
+  sinon.behavior.rejects = rejects
+
 
   return sinon;
 
