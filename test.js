@@ -86,41 +86,41 @@ describe('sinon-as-promised', function () {
 
     });
 
-    function isErr (error) {
-      return error === stub._errorToBeIgnored;
-    }
-
-    function noop () {}
-
-    function setupErrorIgnoranceOnBehavior (behavior) {
-      if (behavior === null)
-        return;
-      behavior.returnValue.catch(isErr, noop);
-    }
-
-    function setupErrorIgnoranceOnAllBehaviors () {
-      // ignore errors on all behaviors of the stub
-      setupErrorIgnoranceOnBehavior(stub.defaultBehavior);
-      for (var i = 0; i < stub.behaviors.length; ++i) {
-        setupErrorIgnoranceOnBehavior(stub.behaviors[i]);
-      }
-    }
-
-    function ignoreErr (errorToBeIgnored) {
-      setupErrorIgnoranceOnAllBehaviors();
-      stub._errorToBeIgnored = errorToBeIgnored;
-    }
 
     describe('#rejects', function () {
 
+      var unhandled;
+      var ignored;
+      Promise.onPossiblyUnhandledRejection(function (err) {
+        unhandled.push(err);
+      });
+      beforeEach(function () {
+        unhandled = [];
+        ignored = [];
+      });
+      afterEach(function () {
+        var errors = unhandled.filter(function (err) {
+          return ignored.indexOf(err) === -1;
+        });
+        if (errors.length) {
+          throw new Error(errors.length + ' unhandled: ' + errors.join(', '));
+        }
+      });
+
       var err;
       beforeEach(function () {
-        err = new Error();
+        err = new Error('Default');
         stub.rejects(err);
       });
 
+      function isErr (error) {
+        return error === err;
+      }
+
+      function noop () {}
+
       it('sets the returnValue to the promise', function () {
-        ignoreErr(err);
+        ignored.push(err);
         expect(stub.defaultBehavior.returnValue).to.itself.respondTo('then');
       });
 
@@ -129,48 +129,47 @@ describe('sinon-as-promised', function () {
       });
 
       it('can reject with an error message', function () {
-        ignoreErr(err);
+        ignored.push(err);
         stub.rejects('Rejection');
         return expect(stub()).to.be.rejectedWith('Rejection');
       });
 
       it('can be chained normally', function () {
-        ignoreErr(err);
+        ignored.push(err);
         expect(stub).to.itself.respondTo('withArgs');
       });
 
-    });
+      describe('#onCall', function () {
 
-    describe('#onCall(...).rejects', function () {
-
-      var firstErr;
-      beforeEach(function () {
-        firstErr = new Error();
-        stub.onCall(0).rejects(firstErr);
-        stub.onCall(1).resolves('bunny');
-      });
-
-      it('returns the first rejection when called', function () {
-        return expect(stub()).to.be.rejectedWith(firstErr);
-      });
-
-      it('can be mixed with resolves', function () {
-        ignoreErr(firstErr);
-        stub();
-        return stub().then(function (value) {
-          expect(value).to.equal('bunny');
+        var firstErr;
+        beforeEach(function () {
+          firstErr = new Error('First');
+          stub.onCall(0).rejects(firstErr);
+          stub.onCall(1).resolves('foo');
         });
-      });
 
-      it('defaults to main rejects', function () {
-        ignoreErr(firstErr);
-        var defaultErr = new Error('default')
-        stub.rejects(defaultErr);
+        it('returns the first rejection when called', function () {
+          ignored.push(err);
+          return expect(stub()).to.be.rejectedWith(firstErr);
+        });
 
-        stub();
-        stub();
+        it('can be mixed with resolves', function () {
+          ignored.push(firstErr);
+          ignored.push(err);
+          stub();
+          return stub().then(function (value) {
+            expect(value).to.equal('foo');
+          });
+        });
 
-        return expect(stub()).to.be.rejectedWith(defaultErr);
+        it('defaults to main rejects', function () {
+          ignored.push(firstErr);
+          ignored.push(err);
+          stub();
+          stub();
+          return expect(stub()).to.be.rejectedWith(err);
+        });
+
       });
 
     });
