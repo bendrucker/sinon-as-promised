@@ -57,33 +57,31 @@ describe('sinon-as-promised', function () {
         expect(stub).to.itself.respondTo('withArgs');
       });
 
-    });
+      describe('#onCall', function () {
 
-    describe('onCall', function () {
-
-      beforeEach(function () {
-        stub.onCall(0).resolves('foo');
-        stub.onCall(1).resolves('bar');
-      });
-
-      it('returns the different promises when called several times', function () {
-        return stub().then(function (first) {
-          expect(first).to.equal('foo');
-          return stub();
-        })
-        .then(function (second) {
-          expect(second).to.equal('bar');
+        beforeEach(function () {
+          stub.onCall(0).resolves('bar');
+          stub.onCall(1).resolves('baz');
         });
-      });
 
-      it('defaults to main resolves', function () {
-        stub.resolves('baz');
-
-        stub(); // foo
-        stub(); // bar
-        return stub().then(function (value) {
-          expect(value).to.equal('baz');
+        it('returns the different promises when called several times', function () {
+          return stub().then(function (first) {
+            expect(first).to.equal('bar');
+            return stub();
+          })
+          .then(function (second) {
+            expect(second).to.equal('baz');
+          });
         });
+
+        it('defaults to main resolves', function () {
+          stub(); // bar
+          stub(); // baz
+          return stub().then(function (value) {
+            expect(value).to.equal('foo');
+          });
+        });
+
       });
 
     });
