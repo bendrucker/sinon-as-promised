@@ -8,27 +8,29 @@ module.exports = function (Promise) {
     throw new Error('A Promise constructor must be provided');
   }
 
-  var resolves = function (value) {
+  function resolves (value) {
+    /*jshint validthis:true */
     return this.returns(new Promise(function (resolve) {
       process.nextTick(resolve.bind(null, value));
     }));
-  };
+  }
 
-  sinon.stub.resolves = resolves
-  sinon.behavior.resolves = resolves
+  sinon.stub.resolves = resolves;
+  sinon.behavior.resolves = resolves;
 
 
-  var rejects = function (err) {
+  function rejects (err) {
     if (typeof err === 'string') {
       err = new Error(err);
     }
+    /*jshint validthis:true */
     return this.returns(new Promise(function (resolve, reject) {
       process.nextTick(reject.bind(null, err));
     }));
-  };
+  }
 
-  sinon.stub.rejects = rejects
-  sinon.behavior.rejects = rejects
+  sinon.stub.rejects = rejects;
+  sinon.behavior.rejects = rejects;
 
 
   return sinon;
