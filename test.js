@@ -59,32 +59,34 @@ describe('sinon-as-promised', function () {
 
     });
 
-  describe('#onCall(...).rejects', function () {
+    describe('onCall', function () {
 
-    beforeEach(function () {
-      stub.onCall(0).resolves('bar');
-      stub.onCall(1).resolves('bunny');
-    });
-
-    it('returns the different promises when called several times', function () {
-      stub().then(function (value) {
-        expect(value).to.equal('bar');
+      beforeEach(function () {
+        stub.onCall(0).resolves('foo');
+        stub.onCall(1).resolves('bar');
       });
-      return stub().then(function (value) {
-        expect(value).to.equal('bunny');
-      });
-    });
 
-    it('defaults to main resolves', function () {
-      stub.resolves('foo');
-
-      stub(); // bar
-      stub(); // bunny
-      return stub().then(function (value) {
-        expect(value).to.equal('foo');
+      it('returns the different promises when called several times', function () {
+        return stub().then(function (first) {
+          expect(first).to.equal('foo');
+          return stub();
+        })
+        .then(function (second) {
+          expect(second).to.equal('bar');
+        });
       });
+
+      it('defaults to main resolves', function () {
+        stub.resolves('baz');
+
+        stub(); // foo
+        stub(); // bar
+        return stub().then(function (value) {
+          expect(value).to.equal('baz');
+        });
+      });
+
     });
-  });
 
     function isErr (error) {
       return error === stub._errorToBeIgnored;
