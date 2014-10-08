@@ -2,15 +2,14 @@
 
 'use strict';
 
-var chai   = require('chai');
-var expect = chai.expect;
+var chai            = require('chai');
+var expect          = chai.expect;
+var sinon           = require('sinon');
+var Promise         = require('bluebird');
+var sinonAsPromised = require('./');
 
 chai.use(require('chai-as-promised'));
 
-var sinon   = require('sinon');
-var Promise = require('bluebird');
-
-var sinonAsPromised = require('./sinon-as-promised');
 
 describe('sinon-as-promised', function () {
 
@@ -18,11 +17,11 @@ describe('sinon-as-promised', function () {
     throw err;
   });
 
-  before(function () {
+  it('can set a Promise constructor', function () {
     sinonAsPromised(Promise);
   });
 
-  it('requires a Promise constructor', function () {
+  it('requires a Promise constructor if called', function () {
     expect(sinonAsPromised).to.throw(/Promise/);
   });
 

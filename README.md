@@ -6,11 +6,15 @@ Sugar methods for using sinon.js stubs with promises.
 ## Getting Started
 ```js
 var sinon           = require('sinon');
-var Promise         = require('bluebird');
-var sinonAsPromised = require('sinon-as-promised')(Promise);
+var sinonAsPromised = require('sinon-as-promised');
 ```
 
-You can use any promise library you'd like that exposes a constructor. You'll only need to call `sinon-as-promised` once. It attaches the appropriate stubbing functions which will then be available anywhere else you require `sinon`. You'll probably want to call it in a setup file that is required before your tests.
+You'll only need to require `sinon-as-promised` once. It attaches the appropriate stubbing functions which will then be available anywhere else you require `sinon`. You'll probably want to call it in a setup file that is required before your tests. It defaults to [Bluebird](https://github.com/petkaantonov/bluebird), but you can use another promise library if you'd like, as long as it exposes a constructor:
+
+```js
+var RSVP            = require('rsvp');
+var sinonAsPromised = require('sinon-as-promised')(RSVP.Promise);
+```
 
 ## Usage
 

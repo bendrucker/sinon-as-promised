@@ -1,38 +1,38 @@
 'use strict';
 
-var sinon = require('sinon');
+var Promise = require('bluebird');
+var sinon   = require('sinon');
 
-module.exports = function (Promise) {
+function resolves (value) {
+  /*jshint validthis:true */
+  return this.returns(new Promise(function (resolve) {
+    process.nextTick(resolve.bind(null, value));
+  }));
+}
 
-  if (!Promise) {
+sinon.stub.resolves = resolves;
+sinon.behavior.resolves = resolves;
+
+
+function rejects (err) {
+  if (typeof err === 'string') {
+    err = new Error(err);
+  }
+  /*jshint validthis:true */
+  return this.returns(new Promise(function (resolve, reject) {
+    process.nextTick(reject.bind(null, err));
+  }));
+}
+
+sinon.stub.rejects = rejects;
+sinon.behavior.rejects = rejects;
+
+module.exports = function (_Promise_) {
+  if (typeof _Promise_ !== 'function') {
     throw new Error('A Promise constructor must be provided');
   }
-
-  function resolves (value) {
-    /*jshint validthis:true */
-    return this.returns(new Promise(function (resolve) {
-      process.nextTick(resolve.bind(null, value));
-    }));
+  else {
+    Promise = _Promise_;
   }
-
-  sinon.stub.resolves = resolves;
-  sinon.behavior.resolves = resolves;
-
-
-  function rejects (err) {
-    if (typeof err === 'string') {
-      err = new Error(err);
-    }
-    /*jshint validthis:true */
-    return this.returns(new Promise(function (resolve, reject) {
-      process.nextTick(reject.bind(null, err));
-    }));
-  }
-
-  sinon.stub.rejects = rejects;
-  sinon.behavior.rejects = rejects;
-
-
   return sinon;
-
 };

@@ -21,9 +21,11 @@
     "url": "https://github.com/bendrucker/sinon-as-promised/issues"
   },
   "homepage": "https://github.com/bendrucker/sinon-as-promised",
+  "dependencies": {
+    "bluebird": "2"
+  },
   "devDependencies": {
     "chai-as-promised": "4",
-    "bluebird": "2",
     "chai": "1",
     "sinon": "1",
     "mocha": "1"
