@@ -18,15 +18,15 @@ You can use any promise library you'd like that exposes a constructor. You'll on
 When called, the stub will return a promise which resolves with the provided `value`.
 
 ```js
-f = sinon.stub();
-f.resolves('foo');
+var stub = sinon.stub();
+stub.resolves('foo');
 
-f().then(function (value) {
+stub().then(function (value) {
     // value === 'foo'
 });
 
-f.onCall(0).resolves('bar')
-f().then(function (value) {
+stub.onCall(0).resolves('bar')
+stub().then(function (value) {
     // value === 'bar'
 });
 ```
@@ -42,9 +42,8 @@ stub.rejects('foo')().catch(function (error) {
     // error.message === 'foo'
 });
 
-f = sinon.stub();
-f.onCall(0).rejects('bar');
-f().catch(function (error) {
+stub.onCall(0).rejects('bar');
+stub().catch(function (error) {
     // error.message === 'bar'
 });
 ```
