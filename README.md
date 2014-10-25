@@ -12,8 +12,11 @@ var sinonAsPromised = require('sinon-as-promised');
 You'll only need to require `sinon-as-promised` once. It attaches the appropriate stubbing functions which will then be available anywhere else you require `sinon`. You'll probably want to call it in a setup file that is required before your tests. It defaults to [Bluebird](https://github.com/petkaantonov/bluebird), but you can use another promise library if you'd like, as long as it exposes a constructor:
 
 ```js
+// Using RSVP
 var RSVP            = require('rsvp');
 var sinonAsPromised = require('sinon-as-promised')(RSVP.Promise);
+// ES6 promises
+var sinonAsPromised = require('sinon-as-promised')(Promise);
 ```
 
 ## Usage
