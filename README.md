@@ -55,5 +55,30 @@ stub().catch(function (error) {
 });
 ```
 
+## Custom Scheduler
+
+By default, sinon-as-promised schedules the resolution or rejection of your stub promises using `process.nextTick` in Node and `setImmediate` in the browser. This helps ensure that [Bluebird's error handling mechanism](https://github.com/petkaantonov/bluebird/blob/master/API.md#error-management-configuration) does not treat rejections as "possibly unhandled" since you'll have a chance to attach an error handler while the promise is still pending.
+
+Sometimes you may want to change this behavior, most commonly when using sinon-as-promised with Angular and `$q`. Angular allows you to flush the queue of deferred functions with `$timeout.flush()`. sinon-as-promised exposes a `setScheduler` method to allow you to override the default scheduling mechanism. 
+
+#### `sinonAsPromised.setScheduler(fn)` -> `undefined`
+
+To replicate the default behavior:
+
+```js
+sinonAsPromised.setScheduler(function (fn) {
+  process.nextTick(fn);
+});
+```
+
+To use with Angular:
+
+```js
+sinonAsPromised($q);
+sinonAsPromised.setScheduler(function (fn) {
+  $rootScope.evalAsync(fn);
+});
+```
+
 ## License
 [MIT](LICENSE)
