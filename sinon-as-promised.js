@@ -3,11 +3,23 @@
 var Promise = require('bluebird');
 var sinon   = require('sinon');
 
+var scheduler = function (fn) {
+  process.nextTick(fn);
+};
+
+function schedule (fn) {
+  return function (resolve, reject) {
+    scheduler(function () {
+      fn(resolve, reject);
+    });
+  };
+}
+
 function resolves (value) {
   /*jshint validthis:true */
-  return this.returns(new Promise(function (resolve) {
-    process.nextTick(resolve.bind(null, value));
-  }));
+  return this.returns(new Promise(schedule(function (resolve) {
+    resolve(value);
+  })));
 }
 
 sinon.stub.resolves = resolves;
@@ -19,9 +31,9 @@ function rejects (err) {
     err = new Error(err);
   }
   /*jshint validthis:true */
-  return this.returns(new Promise(function (resolve, reject) {
-    process.nextTick(reject.bind(null, err));
-  }));
+  return this.returns(new Promise(schedule(function (resolve, reject) {
+    reject(err);
+  })));
 }
 
 sinon.stub.rejects = rejects;
@@ -35,4 +47,8 @@ module.exports = function (_Promise_) {
     Promise = _Promise_;
   }
   return sinon;
+};
+
+module.exports.setScheduler = function (_scheduler_) {
+  scheduler = _scheduler_;
 };
