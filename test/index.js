@@ -6,7 +6,7 @@ var chai            = require('chai');
 var expect          = chai.expect;
 var sinon           = require('sinon');
 var Promise         = require('bluebird');
-var sinonAsPromised = require('./');
+var sinonAsPromised = require('../');
 
 chai.use(require('chai-as-promised'));
 
