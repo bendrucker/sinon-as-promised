@@ -76,7 +76,7 @@ To use with Angular:
 ```js
 sinonAsPromised($q);
 sinonAsPromised.setScheduler(function (fn) {
-  $rootScope.evalAsync(fn);
+  $rootScope.$evalAsync(fn);
 });
 ```
 
