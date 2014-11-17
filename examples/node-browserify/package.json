@@ -5,7 +5,7 @@
   },
   "devDependencies": {
     "chai": "^1.10.0",
-    "karma": "~0.12.26",
+    "karma": "~0.12.25",
     "karma-browserify": "^1.0.0",
     "karma-cli": "~0.0.4",
     "karma-mocha": "~0.1.9",
