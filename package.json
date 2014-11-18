@@ -2,9 +2,10 @@
   "name": "sinon-as-promised",
   "version": "1.3.0",
   "description": "Sugar methods for using sinon.js stubs with promises",
-  "main": "sinon-as-promised.js",
+  "main": "./src",
   "scripts": {
-    "test": "mocha test.js"
+    "test": "istanbul cover _mocha",
+    "examples": "node test/examples.js"
   },
   "repository": {
     "type": "git",
@@ -25,10 +26,13 @@
     "bluebird": "2"
   },
   "devDependencies": {
-    "chai-as-promised": "4",
     "chai": "1",
-    "sinon": "1",
-    "mocha": "1"
+    "chai-as-promised": "4",
+    "del": "^0.1.3",
+    "istanbul": "^0.3.2",
+    "mocha": "1",
+    "ncp": "^1.0.1",
+    "sinon": "1"
   },
   "peerDependencies": {
     "sinon": "1"
