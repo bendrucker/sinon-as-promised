@@ -80,5 +80,11 @@ sinonAsPromised.setScheduler(function (fn) {
 });
 ```
 
+## Examples
+
+* [angular](https://github.com/bendrucker/sinon-as-promised/tree/master/examples/angular)
+* [ES6](https://github.com/bendrucker/sinon-as-promised/tree/master/examples/es6)
+* [Node or Browserify](https://github.com/bendrucker/sinon-as-promised/tree/master/examples/node-browserify)
+
 ## License
 [MIT](LICENSE)
