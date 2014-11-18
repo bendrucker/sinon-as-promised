@@ -5,7 +5,7 @@ var sinon           = require('sinon');
 var sinonAsPromised = require('sinon-as-promised');
 var angular         = require('angular');
 
-describe('sinon-as-promised node example', function () {
+describe('sinon-as-promised angular example', function () {
 
   var $timeout;
   beforeEach(angular.mock.inject(function ($rootScope, $q, _$timeout_) {
