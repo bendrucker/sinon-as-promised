@@ -17,8 +17,8 @@ function thenable (promiseFactory) {
       return acc;
     }, 
     {
-      then: function (resolve, reject) {
-        return promiseFactory().then(resolve, reject);
+      then: function (onFulfill, onReject) {
+        return promiseFactory().then(onFulfill, onReject);
       }
     });
 }
