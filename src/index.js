@@ -4,9 +4,9 @@ var Promise = require('bluebird');
 var sinon   = require('sinon');
 
 function thenable (promiseFactory) {
-  return Object.keys(Promise.prototype)
+  return Object.getOwnPropertyNames(Promise.prototype)
     .filter(function (method) {
-      return Promise.prototype.hasOwnProperty(method) && method !== 'then';
+      return method !== 'then';
     })
     .reduce(function (acc, method) {
       acc[method] = function () {
