@@ -56,20 +56,6 @@ describe('sinon-as-promised', function () {
         expect(stub).to.itself.respondTo('withArgs');
       });
 
-      it('can use a custom scheduler', function () {
-        var deferreds = [];
-        sinonAsPromised.setScheduler(function (fn) {
-          deferreds.push(fn);
-        });
-        stub.resolves('foo');
-        expect(deferreds).to.have.length(1);
-        deferreds[0]();
-        expect(stub().isFulfilled()).to.be.true;
-        sinonAsPromised.setScheduler(function (fn) {
-          process.nextTick(fn);
-        });
-      });
-
       describe('#onCall', function () {
 
         beforeEach(function () {

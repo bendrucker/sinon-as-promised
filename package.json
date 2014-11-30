@@ -4,7 +4,7 @@
   "description": "Sugar methods for using sinon.js stubs with promises",
   "main": "./src",
   "scripts": {
-    "test": "istanbul cover _mocha",
+    "test": "istanbul cover _mocha -- test/index.js",
     "examples": "node test/examples.js"
   },
   "repository": {
