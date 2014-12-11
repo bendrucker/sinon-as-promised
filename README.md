@@ -3,7 +3,17 @@ sinon-as-promised [![Build Status](https://travis-ci.org/bendrucker/sinon-as-pro
 
 Sugar methods for using sinon.js stubs with promises.
 
-## Getting Started
+## Installing
+```bash
+# via npm:
+$ npm install sinon-as-promised
+# or bower:
+$ bower install sinon-as-promised
+```
+
+Tagged versions (which Bower uses) include a `./release/sinon-as-promised.js` build that expect sinon to be available as `window.sinon`. The normal version in `./src` used by npm expects to be able to `require('sinon')`.
+
+## Setup
 ```js
 var sinon           = require('sinon');
 var sinonAsPromised = require('sinon-as-promised');
@@ -19,7 +29,7 @@ var sinonAsPromised = require('sinon-as-promised')(RSVP.Promise);
 var sinonAsPromised = require('sinon-as-promised')(Promise);
 ```
 
-## Usage
+## API
 
 #### `stub.resolves(value)`
 When called, the stub will return a "thenable" object which will return a promise for the provided `value`. Any [Promises/A+](https://promisesaplus.com/) compliant library will handle this object properly.
