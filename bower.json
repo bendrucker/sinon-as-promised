@@ -1,0 +1,32 @@
+{
+  "name": "sinon-as-promised",
+  "version": "1.4.1",
+  "homepage": "https://github.com/bendrucker/sinon-as-promised",
+  "authors": [
+    "Ben Drucker <bvdrucker@gmail.com>"
+  ],
+  "description": "Sugar methods for using sinon.js stubs with promises",
+  "main": "./release/sinon-as-promised.js",
+  "moduleType": [
+    "amd",
+    "globals",
+    "node"
+  ],
+  "keywords": [
+    "sinon",
+    "promise",
+    "utility",
+    "testing",
+    "spies",
+    "stubs"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "app/bower_components",
+    "test",
+    "tests"
+  ]
+}
