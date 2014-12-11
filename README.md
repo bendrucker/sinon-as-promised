@@ -22,7 +22,7 @@ var sinonAsPromised = require('sinon-as-promised')(Promise);
 ## Usage
 
 #### `stub.resolves(value)`
-When called, the stub will return a promise which resolves with the provided `value`.
+When called, the stub will return a "thenable" object which will return a promise for the provided `value`. Any [Promises/A+](https://promisesaplus.com/) compliant library will handle this object properly.
 
 ```js
 var stub = sinon.stub();
@@ -39,7 +39,7 @@ stub().then(function (value) {
 ```
 
 #### `stub.rejects(error)`
-When called, the stub will return a promise which rejects with the provided `error`. If `error` is a string, it will be set as the error message.
+When called, the stub will return a thenable which will return a reject promise with the provided `error`. If `error` is a string, it will be set as the message on an `Error` object.
 
 ```js
 stub.rejects(new Error('foo'))().catch(function (error) {
@@ -52,31 +52,6 @@ stub.rejects('foo')().catch(function (error) {
 stub.onCall(0).rejects('bar');
 stub().catch(function (error) {
     // error.message === 'bar'
-});
-```
-
-## Custom Scheduler
-
-By default, sinon-as-promised schedules the resolution or rejection of your stub promises using `process.nextTick` in Node and `setImmediate` in the browser. This helps ensure that [Bluebird's error handling mechanism](https://github.com/petkaantonov/bluebird/blob/master/API.md#error-management-configuration) does not treat rejections as "possibly unhandled" since you'll have a chance to attach an error handler while the promise is still pending.
-
-Sometimes you may want to change this behavior, most commonly when using sinon-as-promised with Angular and `$q`. Angular allows you to flush the queue of deferred functions with `$timeout.flush()`. sinon-as-promised exposes a `setScheduler` method to allow you to override the default scheduling mechanism. 
-
-#### `sinonAsPromised.setScheduler(fn)` -> `undefined`
-
-To replicate the default behavior:
-
-```js
-sinonAsPromised.setScheduler(function (fn) {
-  process.nextTick(fn);
-});
-```
-
-To use with Angular:
-
-```js
-sinonAsPromised($q);
-sinonAsPromised.setScheduler(function (fn) {
-  $rootScope.$evalAsync(fn);
 });
 ```
 
