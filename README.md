@@ -11,7 +11,7 @@ $ npm install sinon-as-promised
 $ bower install sinon-as-promised
 ```
 
-Tagged versions (which Bower uses) include a `./release/sinon-as-promised.js` build that expect sinon to be available as `window.sinon`. The normal version in `./src` used by npm expects to be able to `require('sinon')`.
+Tagged versions (which Bower uses) include a `./release/sinon-as-promised.js` build that expect sinon to be available as `window.sinon` and exposes its method for changing the promise constructor as `window.sinonAsPromised`. The normal version in `./src` used by npm expects to be able to `require('sinon')`.
 
 ## Setup
 ```js
