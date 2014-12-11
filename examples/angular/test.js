@@ -10,9 +10,6 @@ describe('sinon-as-promised angular example', function () {
   var $timeout;
   beforeEach(angular.mock.inject(function ($rootScope, $q, _$timeout_) {
     sinonAsPromised($q);
-    sinonAsPromised.setScheduler(function (fn) {
-      $rootScope.$evalAsync(fn);
-    });
     $timeout = _$timeout_;
   }));
 

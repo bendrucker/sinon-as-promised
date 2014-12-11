@@ -52,22 +52,14 @@ describe('sinon-as-promised', function () {
         });
       });
 
-      it('can be chained normally', function () {
-        expect(stub).to.itself.respondTo('withArgs');
+      it('adds prototype methods from Promise to the thenable object', function () {
+        return stub().call('substr', 0, 1).then(function (firstChar) {
+          expect(firstChar).to.equal('f');
+        });
       });
 
-      it('can use a custom scheduler', function () {
-        var deferreds = [];
-        sinonAsPromised.setScheduler(function (fn) {
-          deferreds.push(fn);
-        });
-        stub.resolves('foo');
-        expect(deferreds).to.have.length(1);
-        deferreds[0]();
-        expect(stub().isFulfilled()).to.be.true;
-        sinonAsPromised.setScheduler(function (fn) {
-          process.nextTick(fn);
-        });
+      it('can be chained normally', function () {
+        expect(stub).to.itself.respondTo('withArgs');
       });
 
       describe('#onCall', function () {
