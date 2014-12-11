@@ -52,6 +52,12 @@ describe('sinon-as-promised', function () {
         });
       });
 
+      it('adds prototype methods from Promise to the thenable object', function () {
+        return stub().call('substr', 0, 1).then(function (firstChar) {
+          expect(firstChar).to.equal('f');
+        });
+      });
+
       it('can be chained normally', function () {
         expect(stub).to.itself.respondTo('withArgs');
       });
