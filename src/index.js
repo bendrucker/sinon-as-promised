@@ -3,8 +3,15 @@
 var Promise = require('bluebird');
 var sinon   = require('sinon');
 
+function ensure (actual, expected) {
+  expected.forEach(function (method) {
+    if (actual.indexOf(method) === -1) actual.push(method);
+  });
+  return actual;
+}
+
 function thenable (promiseFactory) {
-  return Object.getOwnPropertyNames(Promise.prototype)
+  return ensure(Object.getOwnPropertyNames(Promise.prototype), ['catch', 'finally'])
     .filter(function (method) {
       return method !== 'then';
     })

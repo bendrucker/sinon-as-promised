@@ -17,6 +17,10 @@ describe('sinon-as-promised', function () {
     throw err;
   });
 
+  beforeEach(function () {
+    sinonAsPromised(Promise);
+  });
+
   it('can set a Promise constructor', function () {
     sinonAsPromised(Promise);
   });
@@ -56,6 +60,17 @@ describe('sinon-as-promised', function () {
         return stub().call('substr', 0, 1).then(function (firstChar) {
           expect(firstChar).to.equal('f');
         });
+      });
+
+      it('ensures "catch" and "finally" are available even for misbehaved implementations (Angular)', function () {
+        function $q (resolver) {
+          resolver(function resolve () {
+
+          });
+        }
+        sinonAsPromised($q);
+        stub.resolves('foo');
+        expect(stub.defaultBehavior.returnValue).to.itself.respondTo('catch');
       });
 
       it('can be chained normally', function () {
