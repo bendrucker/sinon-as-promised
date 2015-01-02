@@ -15,13 +15,13 @@ function thenable (promiseFactory) {
     .filter(function (method) {
       return method !== 'then';
     })
-    .reduce(function (acc, method) {
-      acc[method] = function () {
+    .reduce(function (thenable, method) {
+      thenable[method] = function () {
         var args = arguments;
         var promise = this.then();
         return promise[method].apply(promise, args);
       };
-      return acc;
+      return thenable;
     }, 
     {
       then: function (onFulfill, onReject) {
