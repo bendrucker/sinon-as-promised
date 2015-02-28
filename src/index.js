@@ -24,8 +24,9 @@ function thenable (promiseFactory) {
       return thenable;
     }, 
     {
-      then: function (onFulfill, onReject) {
-        return promiseFactory().then(onFulfill, onReject);
+      then: function (/*onFulfill, onReject*/) {
+        var promise = promiseFactory();
+        return promise.then.apply(promise, arguments);
       }
     });
 }
