@@ -5,6 +5,8 @@ var sinon           = require('sinon');
 var sinonAsPromised = require('sinon-as-promised');
 var angular         = require('angular');
 
+require('angular-mocks');
+
 describe('sinon-as-promised angular example', function () {
 
   var $timeout;
