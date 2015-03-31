@@ -5,7 +5,7 @@
 var chai            = require('chai');
 var expect          = chai.expect;
 var sinon           = require('sinon');
-var Promise         = require('bluebird');
+var Bluebird        = require('bluebird');
 var sinonAsPromised = require('../');
 
 chai.use(require('chai-as-promised'));
@@ -13,16 +13,17 @@ chai.use(require('chai-as-promised'));
 
 describe('sinon-as-promised', function () {
 
-  Promise.onPossiblyUnhandledRejection(function (err) {
+  Bluebird.onPossiblyUnhandledRejection(function (err) {
     throw err;
   });
 
-  beforeEach(function () {
-    sinonAsPromised(Promise);
+  it('uses a native Promise (or polyfill) by default', function () {
+    expect(sinon.stub().resolves()().then()).to.be.an.instanceOf(Promise);
   });
 
   it('can set a Promise constructor', function () {
-    sinonAsPromised(Promise);
+    sinonAsPromised(Bluebird);
+    expect(sinon.stub().resolves()().then()).to.be.an.instanceOf(Bluebird);
   });
 
   it('requires a Promise constructor if called', function () {
@@ -30,13 +31,14 @@ describe('sinon-as-promised', function () {
   });
 
   it('returns sinon for convenience', function () {
-    expect(sinonAsPromised(Promise)).to.equal(sinon);
+    expect(sinonAsPromised(Bluebird)).to.equal(sinon);
   });
 
   describe('stub', function () {
 
     var stub;
     beforeEach(function () {
+      sinonAsPromised(Bluebird);
       stub = sinon.stub();
     });
 
@@ -111,7 +113,7 @@ describe('sinon-as-promised', function () {
 
       var unhandled;
       var ignored;
-      Promise.onPossiblyUnhandledRejection(function (err) {
+      Bluebird.onPossiblyUnhandledRejection(function (err) {
         unhandled.push(err);
       });
       beforeEach(function () {

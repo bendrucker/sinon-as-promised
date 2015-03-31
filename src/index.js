@@ -1,6 +1,6 @@
 'use strict';
 
-var Promise = require('bluebird');
+var Promise = require('native-promise-only');
 var sinon   = require('sinon');
 
 function ensure (actual, expected) {

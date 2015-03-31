@@ -19,14 +19,12 @@ var sinon           = require('sinon');
 var sinonAsPromised = require('sinon-as-promised');
 ```
 
-You'll only need to require `sinon-as-promised` once. It attaches the appropriate stubbing functions which will then be available anywhere else you require `sinon`. You'll probably want to call it in a setup file that is required before your tests. It defaults to [Bluebird](https://github.com/petkaantonov/bluebird), but you can use another promise library if you'd like, as long as it exposes a constructor:
+You'll only need to require `sinon-as-promised` once. It attaches the appropriate stubbing functions which will then be available anywhere else you require `sinon`. You'll probably want to call it in a setup file that is required before your tests. It defaults to using native ES6 Promise [(or provides a polyfill)](https://github.com/getify/native-promise-only), but you can use another promise library if you'd like, as long as it exposes a constructor:
 
 ```js
-// Using RSVP
-var RSVP            = require('rsvp');
-var sinonAsPromised = require('sinon-as-promised')(RSVP.Promise);
-// ES6 promises
-var sinonAsPromised = require('sinon-as-promised')(Promise);
+// Using Bluebird
+var Bluebird        = require('bluebird');
+var sinonAsPromised = require('sinon-as-promised')(Bluebird);
 ```
 
 ## API
@@ -68,7 +66,7 @@ stub().catch(function (error) {
 ## Examples
 
 * [angular](https://github.com/bendrucker/sinon-as-promised/tree/master/examples/angular)
-* [ES6](https://github.com/bendrucker/sinon-as-promised/tree/master/examples/es6)
+* [Bluebird](https://github.com/bendrucker/sinon-as-promised/tree/master/examples/bluebird)
 * [Node or Browserify](https://github.com/bendrucker/sinon-as-promised/tree/master/examples/node-browserify)
 
 ## License

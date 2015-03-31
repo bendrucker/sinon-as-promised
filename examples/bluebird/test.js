@@ -1,9 +1,10 @@
 'use strict';
 
-var expect = require('chai').expect;
-var sinon  = require('sinon');
+var expect   = require('chai').expect;
+var sinon    = require('sinon');
+var Bluebird = require('bluebird');
 
-require('sinon-as-promised')(Promise);
+require('sinon-as-promised')(Bluebird);
 
 describe('sinon-as-promised with ES6', function () {
 
