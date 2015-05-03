@@ -5,9 +5,7 @@
   "main": "./src",
   "scripts": {
     "test": "istanbul cover _mocha -- test/index.js",
-    "examples": "node test/examples.js",
-    "release": "release release",
-    "build": "EXPOSIFY_CONFIG='{ \"sinon\": \"sinon\" }' browserify -s 'sinonAsPromised' -t exposify ./src/index.js > ./release/sinon-as-promised.js"
+    "examples": "node test/examples.js"
   },
   "repository": {
     "type": "git",
@@ -29,18 +27,36 @@
   },
   "devDependencies": {
     "bluebird": "~2.9.21",
-    "browserify": "^7.0.0",
-    "browserify-bower-release": "^2.1.0",
     "chai": "1",
     "chai-as-promised": "4",
     "del": "^0.1.3",
-    "exposify": "^0.2.0",
+    "exposify": "~0.4.0",
     "istanbul": "^0.3.2",
     "mocha": "1",
     "ncp": "^1.0.1",
+    "publicist-umd": "~1.0.1",
     "sinon": "1"
   },
   "peerDependencies": {
     "sinon": "1"
+  },
+  "publicist": {
+    "builds": {
+      "umd": {
+        "dest": "./release",
+        "browserify": {
+          "transform": [
+            [
+              "exposify",
+              {
+                "expose": {
+                  "sinon": "sinon"
+                }
+              }
+            ]
+          ]
+        }
+      }
+    }
   }
 }
