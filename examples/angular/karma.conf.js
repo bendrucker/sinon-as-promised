@@ -1,4 +1,4 @@
-module.exports = function(config) {
+module.exports = function (config) {
   config.set({
     frameworks: ['browserify', 'mocha'],
     files: [
@@ -8,5 +8,5 @@ module.exports = function(config) {
       './test.js': ['browserify']
     },
     browsers: ['PhantomJS']
-  });
-};
+  })
+}

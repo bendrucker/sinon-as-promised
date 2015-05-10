@@ -4,7 +4,7 @@
   "description": "Sugar methods for using sinon.js stubs with promises",
   "main": "./src",
   "scripts": {
-    "test": "istanbul cover _mocha -- test/index.js",
+    "test": "standard && istanbul cover _mocha -- test/index.js",
     "examples": "node test/examples.js"
   },
   "repository": {
@@ -35,7 +35,8 @@
     "mocha": "1",
     "ncp": "^1.0.1",
     "publicist-umd": "~1.0.1",
-    "sinon": "1"
+    "sinon": "1",
+    "standard": "~3.7.3"
   },
   "peerDependencies": {
     "sinon": "1"
