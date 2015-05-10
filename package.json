@@ -35,6 +35,7 @@
     "istanbul": "^0.3.2",
     "mocha": "1",
     "ncp": "^1.0.1",
+    "publicist": "~4.0.4",
     "publicist-umd": "~1.0.1",
     "sinon": "1",
     "standard": "~3.7.3"
