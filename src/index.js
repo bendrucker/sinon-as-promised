@@ -2,41 +2,11 @@
 
 var Promise = require('native-promise-only')
 var sinon = require('sinon')
-
-function ensure (actual, expected) {
-  expected.forEach(function (method) {
-    if (actual.indexOf(method) === -1) actual.push(method)
-  })
-  return actual
-}
-
-function thenable (promiseFactory) {
-  return ensure(Object.getOwnPropertyNames(Promise.prototype), ['catch', 'finally'])
-    .filter(function (method) {
-      return method !== 'then'
-    })
-    .reduce(function (thenable, method) {
-      thenable[method] = function () {
-        var args = arguments
-        var promise = this.then()
-        return promise[method].apply(promise, args)
-      }
-      return thenable
-    },
-    {
-      then: function (/*onFulfill, onReject*/) {
-        var promise = promiseFactory()
-        return promise.then.apply(promise, arguments)
-      }
-    })
-}
+var createThenable = require('create-thenable')
 
 function resolves (value) {
-  /*jshint validthis:true */
-  return this.returns(thenable(function () {
-    return new Promise(function (resolve) {
-      resolve(value)
-    })
+  return this.returns(createThenable(Promise, function (resolve) {
+    resolve(value)
   }))
 }
 
@@ -47,11 +17,8 @@ function rejects (err) {
   if (typeof err === 'string') {
     err = new Error(err)
   }
-  /*jshint validthis:true */
-  return this.returns(thenable(function () {
-    return new Promise(function (resolve, reject) {
-      reject(err)
-    })
+  return this.returns(createThenable(Promise, function (resolve, reject) {
+    reject(err)
   }))
 }
 

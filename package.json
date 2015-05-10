@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/bendrucker/sinon-as-promised",
   "dependencies": {
+    "create-thenable": "~1.0.0",
     "native-promise-only": "~0.7.8-a"
   },
   "devDependencies": {
