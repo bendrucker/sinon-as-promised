@@ -2,9 +2,9 @@
   "name": "sinon-as-promised",
   "version": "3.0.1",
   "description": "Sugar methods for using sinon.js stubs with promises",
-  "main": "./src",
+  "main": "index.js",
   "scripts": {
-    "test": "standard && istanbul cover _mocha -- test/index.js",
+    "test": "standard && istanbul cover _mocha -- test.js",
     "examples": "node test/examples.js"
   },
   "repository": {
@@ -37,5 +37,9 @@
   },
   "peerDependencies": {
     "sinon": "1"
-  }
+  },
+  "files": [
+    "index.js",
+    "readme.md"
+  ]
 }
