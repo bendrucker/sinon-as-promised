@@ -1,4 +1,4 @@
-sinon-as-promised [![Build Status](https://travis-ci.org/bendrucker/sinon-as-promised.svg?branch=master)](https://travis-ci.org/bendrucker/sinon-as-promised) [![NPM version](https://badge.fury.io/js/sinon-as-promised.svg)](http://badge.fury.io/js/sinon-as-promised)
+sinon-as-promised [![Build Status](https://travis-ci.org/bendrucker/sinon-as-promised.svg?branch=master)](https://travis-ci.org/bendrucker/sinon-as-promised)
 =================
 
 > Extend [Sinon](https://github.com/cjohansen/sinon.js) stubs with promise stubbing methods.
