@@ -8,7 +8,7 @@ sinon-as-promised [![Build Status](https://travis-ci.org/bendrucker/sinon-as-pro
 npm install sinon-as-promised
 ```
 
-If you're not using Browserify, use [3.x](https://github.com/bendrucker/sinon-as-promised/tree/v3.0.1) or earlier.
+If you're using sinon-as-promised and are not using Browserify/Webpack, use [3.x](https://github.com/bendrucker/sinon-as-promised/tree/v3.0.1) or earlier.
 
 ## Usage
 
