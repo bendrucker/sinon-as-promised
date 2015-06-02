@@ -1,22 +1,17 @@
 sinon-as-promised [![Build Status](https://travis-ci.org/bendrucker/sinon-as-promised.svg?branch=master)](https://travis-ci.org/bendrucker/sinon-as-promised) [![NPM version](https://badge.fury.io/js/sinon-as-promised.svg)](http://badge.fury.io/js/sinon-as-promised)
 =================
 
-Sugar methods for using sinon.js stubs with promises.
+> Extend [Sinon](https://github.com/cjohansen/sinon.js) stubs with promise stubbing methods.
 
 ## Installing
-```bash
-# via npm:
-$ npm install sinon-as-promised
-# or bower:
-$ bower install sinon-as-promised
+```sh
+npm install sinon-as-promised
 ```
-
-Tagged versions (which Bower uses) include a `./release/sinon-as-promised.js` build that expect sinon to be available as `window.sinon` and exposes its method for changing the promise constructor as `window.sinonAsPromised`. The normal version in `./src` used by npm expects to be able to `require('sinon')`.
 
 ## Setup
 ```js
-var sinon           = require('sinon');
-var sinonAsPromised = require('sinon-as-promised');
+var sinon  = require('sinon')
+var sinonAsPromised = require('sinon-as-promised')
 ```
 
 You'll only need to require `sinon-as-promised` once. It attaches the appropriate stubbing functions which will then be available anywhere else you require `sinon`. You'll probably want to call it in a setup file that is required before your tests. It defaults to using native ES6 Promise [(or provides a polyfill)](https://github.com/getify/native-promise-only), but you can use another promise library if you'd like, as long as it exposes a constructor:
