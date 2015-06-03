@@ -1,185 +1,74 @@
 'use strict'
 
-/* global describe, it, beforeEach, afterEach */
-
-var chai = require('chai')
-var expect = chai.expect
+var test = require('tape')
 var sinon = require('sinon')
+var Promise = require('native-promise-only')
 var Bluebird = require('bluebird')
 var sinonAsPromised = require('./')
 
-chai.use(require('chai-as-promised'))
-
-describe('sinon-as-promised', function () {
+test(function (t) {
   Bluebird.onPossiblyUnhandledRejection(function (err) {
-    throw err
+    t.fail(err)
+    process.exit(1)
   })
 
-  it('uses a native Promise (or polyfill) by default', function () {
-    expect(sinon.stub().resolves()().then()).to.be.an.instanceOf(Promise)
-  })
+  t.ok(sinon.stub().resolves()().then() instanceof Promise)
 
-  it('can set a Promise constructor', function () {
-    sinonAsPromised(Bluebird)
-    expect(sinon.stub().resolves()().then()).to.be.an.instanceOf(Bluebird)
-  })
+  sinonAsPromised(Bluebird)
+  t.ok(sinon.stub().resolves()().then() instanceof Bluebird)
 
-  it('requires a Promise constructor if called', function () {
-    expect(sinonAsPromised).to.throw(/Promise/)
-  })
+  t.throws(sinonAsPromised, /Promise/, 'requires ctor')
+  t.equal(sinonAsPromised(Bluebird), sinon)
 
-  it('returns sinon for convenience', function () {
-    expect(sinonAsPromised(Bluebird)).to.equal(sinon)
-  })
-
-  describe('stub', function () {
-    var stub
-    beforeEach(function () {
-      sinonAsPromised(Bluebird)
-      stub = sinon.stub()
+  testStub(3, function (t, stub) {
+    stub.resolves('foo')
+    t.ok('then' in stub.defaultBehavior.returnValue, 'has then method')
+    stub().then(function (value) {
+      t.equal(value, 'foo', 'resolves')
+      stub().call('substr', 0, 1).then(function (char) {
+        t.equal(char, 'f', 'has proto methods')
+      })
     })
-
-    describe('#resolves', function () {
-      beforeEach(function () {
-        stub.resolves('foo')
-      })
-
-      it('sets the returnValue to the promise', function () {
-        expect(stub.defaultBehavior.returnValue).to.itself.respondTo('then')
-      })
-
-      it('returns the promise when called', function () {
-        return stub().then(function (value) {
-          expect(value).to.equal('foo')
-        })
-      })
-
-      it('adds prototype methods from Promise to the thenable object', function () {
-        return stub().call('substr', 0, 1).then(function (firstChar) {
-          expect(firstChar).to.equal('f')
-        })
-      })
-
-      it('ensures "catch" and "finally" are available even for misbehaved implementations (Angular)', function () {
-        function $q (resolver) {
-          resolver(function resolve () {})
-        }
-        sinonAsPromised($q)
-        stub.resolves('foo')
-        expect(stub.defaultBehavior.returnValue).to.itself.respondTo('catch')
-      })
-
-      it('can be chained normally', function () {
-        expect(stub).to.itself.respondTo('withArgs')
-      })
-
-      describe('#onCall', function () {
-        beforeEach(function () {
-          stub.onCall(0).resolves('bar')
-          stub.onCall(1).resolves('baz')
-        })
-
-        it('returns the different promises when called several times', function () {
-          return stub().then(function (first) {
-            expect(first).to.equal('bar')
-            return stub()
-          })
-            .then(function (second) {
-              expect(second).to.equal('baz')
-            })
-        })
-
-        it('defaults to main resolves', function () {
-          stub() // bar
-          stub() // baz
-          return stub().then(function (value) {
-            expect(value).to.equal('foo')
-          })
-        })
-
-      })
-
-    })
-
-    describe('#rejects', function () {
-      var unhandled
-      var ignored
-      Bluebird.onPossiblyUnhandledRejection(function (err) {
-        unhandled.push(err)
-      })
-      beforeEach(function () {
-        unhandled = []
-        ignored = []
-      })
-      afterEach(function () {
-        var errors = unhandled.filter(function (err) {
-          return ignored.indexOf(err) === -1
-        })
-        if (errors.length) {
-          throw new Error(errors.length + ' unhandled: ' + errors.join(', '))
-        }
-      })
-
-      var err
-      beforeEach(function () {
-        err = new Error('Default')
-        stub.rejects(err)
-      })
-
-      it('sets the returnValue to the promise', function () {
-        ignored.push(err)
-        expect(stub.defaultBehavior.returnValue).to.itself.respondTo('then')
-      })
-
-      it('returns the promise when called', function () {
-        return expect(stub()).to.be.rejectedWith(err)
-      })
-
-      it('can reject with an error message', function () {
-        ignored.push(err)
-        stub.rejects('Rejection')
-        return expect(stub()).to.be.rejectedWith('Rejection')
-      })
-
-      it('can be chained normally', function () {
-        ignored.push(err)
-        expect(stub).to.itself.respondTo('withArgs')
-      })
-
-      describe('#onCall', function () {
-        var firstErr
-        beforeEach(function () {
-          firstErr = new Error('First')
-          stub.onCall(0).rejects(firstErr)
-          stub.onCall(1).resolves('foo')
-        })
-
-        it('returns the first rejection when called', function () {
-          ignored.push(err)
-          return expect(stub()).to.be.rejectedWith(firstErr)
-        })
-
-        it('can be mixed with resolves', function () {
-          ignored.push(firstErr)
-          ignored.push(err)
-          stub()
-          return stub().then(function (value) {
-            expect(value).to.equal('foo')
-          })
-        })
-
-        it('defaults to main rejects', function () {
-          ignored.push(firstErr)
-          ignored.push(err)
-          stub()
-          stub()
-          return expect(stub()).to.be.rejectedWith(err)
-        })
-
-      })
-
-    })
-
   })
 
+  testStub(2, function (t, stub) {
+    stub.onCall(0).resolves('foo')
+    stub.onCall(1).resolves('bar')
+    stub().then(function (value) {
+      t.equal(value, 'foo')
+      return stub()
+    })
+    .then(function (value) {
+      t.equal(value, 'bar')
+    })
+  })
+
+  testStub(1, function (t, stub) {
+    var err = new Error()
+    stub.rejects(err)
+    stub().catch(function (e) {
+      t.equal(e, err)
+    })
+  })
+
+  testStub(3, function (t, stub) {
+    var err = new Error()
+    stub.onCall(0).rejects(err)
+    stub.onCall(1).rejects('msg')
+    stub().catch(function (e) {
+      t.equal(e, err)
+      return stub()
+    })
+    .catch(function (err) {
+      t.ok(err instanceof Error)
+      t.equal(err.message, 'msg')
+    })
+  })
+
+  function testStub (planned, callback) {
+    t.test(function (t) {
+      t.plan(planned)
+      callback(t, sinon.stub())
+    })
+  }
 })
