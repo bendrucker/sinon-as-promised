@@ -72,4 +72,5 @@ This was a very minimal example. We didn't test any of the resolved
 values that were passed into our test ``.then()`` handlers. We didn't 
 handle any promise ``reject()`` error handlers, etc.
 
-- Link to full example
+For a full example of this, take a look at 
+https://github.com/pauleveritt/sap-then-assert
