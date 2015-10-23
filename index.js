@@ -1,7 +1,11 @@
 'use strict'
 
 var Promise = require('native-promise-only')
-var sinon = require('sinon')
+if(global.sinon === undefined){
+  var sinon = require('sinon')
+} else {
+  var sinon = global.sinon
+}
 var createThenable = require('create-thenable')
 
 function resolves (value) {
