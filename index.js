@@ -11,7 +11,16 @@ function resolves (value) {
 }
 
 sinon.stub.resolves = resolves
-sinon.behavior.resolves = resolves
+try {
+  var behavior = require('sinon/lib/sinon/behavior')
+  behavior.resolves = resolves
+} catch (e) {
+
+  // If there is no sinon/lib/sinon/behavior we're using sinon 1, set on direct
+  // export
+  sinon.behavior.resolves = resolves
+}
+
 
 function rejects (err) {
   if (typeof err === 'string') {
