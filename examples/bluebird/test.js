@@ -15,5 +15,4 @@ describe('sinon-as-promised with ES6', function () {
       expect(value).to.equal('value')
     })
   })
-
 })

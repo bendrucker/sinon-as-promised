@@ -27,5 +27,4 @@ describe('sinon-as-promised angular example', function () {
     $timeout.flush()
     expect(fulfilled).to.be.true
   })
-
 })

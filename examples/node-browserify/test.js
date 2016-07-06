@@ -14,5 +14,4 @@ describe('sinon-as-promised node example', function () {
       expect(value).to.equal('value')
     })
   })
-
 })
