@@ -1,8 +1,10 @@
-'use strict'
+'use strict';
 
-var Promise = require('native-promise-only')
-var sinon = require('sinon')
-var createThenable = require('create-thenable')
+var Promise = require('native-promise-only');
+var sinon = require('sinon');
+sinon.behavior = require('sinon/lib/sinon/behavior');
+
+var createThenable = require('create-thenable');
 
 function resolves (value) {
   return this.returns(createThenable(Promise, function (resolve) {
@@ -10,8 +12,8 @@ function resolves (value) {
   }))
 }
 
-sinon.stub.resolves = resolves
-sinon.behavior.resolves = resolves
+sinon.stub.resolves = resolves;
+sinon.behavior.resolves = resolves;
 
 function rejects (err) {
   if (typeof err === 'string') {
@@ -22,8 +24,8 @@ function rejects (err) {
   }))
 }
 
-sinon.stub.rejects = rejects
-sinon.behavior.rejects = rejects
+sinon.stub.rejects = rejects;
+sinon.behavior.rejects = rejects;
 
 module.exports = function (_Promise_) {
   if (typeof _Promise_ !== 'function') {
@@ -32,4 +34,4 @@ module.exports = function (_Promise_) {
     Promise = _Promise_
   }
   return sinon
-}
+};

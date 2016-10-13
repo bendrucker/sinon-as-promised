@@ -13,8 +13,8 @@ If you're using sinon-as-promised in the browser and are not using Browserify/We
 ## Usage
 
 ```js
-var sinon  = require('sinon')
-require('sinon-as-promised')
+var sinon  = require('sinon');
+require('sinon-as-promised');
 
 sinon.stub().resolves('foo')().then(function (value) {
   assert.equal(value, 'foo')
@@ -25,8 +25,8 @@ You'll only need to require sinon-as-promised once. It attaches the appropriate 
 
 ```js
 // Using Bluebird
-var Bluebird = require('bluebird')
-require('sinon-as-promised')(Bluebird)
+var Bluebird = require('bluebird');
+require('sinon-as-promised')(Bluebird);
 ```
 
 ## API
