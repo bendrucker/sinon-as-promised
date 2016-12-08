@@ -99,9 +99,9 @@ test(function (t) {
   })
 
   testSpy(4, function (t, spy) {
-    function test(s) {
+    function test (s) {
       return s('hello', 'world')
-      .then(function(value){
+      .then(function (value) {
         t.equal(value, 'foo')
         return 'bar'
       })
@@ -109,7 +109,7 @@ test(function (t) {
 
     var s = spy.resolves('foo')
     test(s.promised)
-    .then(function(value){
+    .then(function (value) {
       t.equal(value, 'bar')
       t.equal(s.firstCall.args[0], 'hello')
       t.equal(s.firstCall.args[1], 'world')
@@ -117,9 +117,9 @@ test(function (t) {
   })
 
   testSpy(4, function (t, spy) {
-    function test(s) {
+    function test (s) {
       return s('hello', 'world')
-      .catch(function(value){
+      .catch(function (value) {
         t.equal(value, 'foo')
         return 'bar'
       })
@@ -127,7 +127,7 @@ test(function (t) {
 
     var s = spy.rejects('foo')
     test(s.promised)
-    .then(function(value){
+    .then(function (value) {
       t.equal(value, 'bar')
       t.equal(s.firstCall.args[0], 'hello')
       t.equal(s.firstCall.args[1], 'world')
@@ -136,9 +136,9 @@ test(function (t) {
 
   testSpy(4, function (t, spy) {
     var err = new Error()
-    function test(s) {
+    function test (s) {
       return s('hello', 'world')
-      .catch(function(e){
+      .catch(function (e) {
         t.equal(e, err)
         return 'bar'
       })
@@ -146,7 +146,7 @@ test(function (t) {
 
     var s = spy.rejects(err)
     test(s.promised)
-    .then(function(value){
+    .then(function (value) {
       t.equal(value, 'bar')
       t.equal(s.firstCall.args[0], 'hello')
       t.equal(s.firstCall.args[1], 'world')

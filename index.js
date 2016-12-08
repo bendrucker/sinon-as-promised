@@ -25,9 +25,9 @@ function rejects (err) {
 sinon.stub.rejects = rejects
 sinon.behavior.rejects = rejects
 
-function spyResolves(val) {
+function spyResolves (val) {
   var spy = this
-  spy.promised = function() {
+  spy.promised = function () {
     spy.apply(this, arguments)
     return createThenable(Promise, function (resolve) {
       resolve(val)
@@ -38,9 +38,9 @@ function spyResolves(val) {
 
 sinon.spy.resolves = spyResolves
 
-function spyRejects(err) {
+function spyRejects (err) {
   var spy = this
-  spy.promised = function() {
+  spy.promised = function () {
     spy.apply(this, arguments)
     return createThenable(Promise, function (resolve, reject) {
       reject(err)
