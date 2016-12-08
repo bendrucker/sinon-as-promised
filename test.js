@@ -79,7 +79,7 @@ test(function (t) {
     process.exit(1)
   })
 
-  t.equal(sinon.spy().resolves().promised().then().constructor.name, "Promise")
+  t.equal(sinon.spy().resolves().promised().then().constructor.name, 'Promise')
 
   sinonAsPromised(Bluebird)
   t.ok(sinon.spy().resolves().promised().then() instanceof Bluebird)
