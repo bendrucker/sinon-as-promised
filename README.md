@@ -3,6 +3,8 @@ sinon-as-promised [![Build Status](https://travis-ci.org/bendrucker/sinon-as-pro
 
 > Extend [Sinon](https://github.com/cjohansen/sinon.js) stubs with promise stubbing methods.
 
+*Sinon 2 added `resolves` and `rejects` methods and no longer requires this library.*
+
 ## Installing
 ```sh
 npm install sinon-as-promised
