@@ -72,3 +72,91 @@ test(function (t) {
     })
   }
 })
+
+test(function (t) {
+  Bluebird.onPossiblyUnhandledRejection(function (err) {
+    t.fail(err)
+    process.exit(1)
+  })
+
+  t.equal(sinon.spy().resolves().promised().then().constructor.name, 'Promise')
+
+  sinonAsPromised(Bluebird)
+  t.ok(sinon.spy().resolves().promised().then() instanceof Bluebird)
+
+  t.throws(sinonAsPromised, /Promise/, 'requires ctor')
+  t.equal(sinonAsPromised(Bluebird), sinon)
+
+  testSpy(3, function (t, spy) {
+    var s = spy.resolves('foo')
+    t.ok('then' in s.promised(), 'has then method')
+    spy.promised().then(function (value) {
+      t.equal(value, 'foo', 'resolves')
+      spy.promised().call('substr', 0, 1).then(function (char) {
+        t.equal(char, 'f', 'has proto methods')
+      })
+    })
+  })
+
+  testSpy(4, function (t, spy) {
+    function test (s) {
+      return s('hello', 'world')
+      .then(function (value) {
+        t.equal(value, 'foo')
+        return 'bar'
+      })
+    }
+
+    var s = spy.resolves('foo')
+    test(s.promised)
+    .then(function (value) {
+      t.equal(value, 'bar')
+      t.equal(s.firstCall.args[0], 'hello')
+      t.equal(s.firstCall.args[1], 'world')
+    })
+  })
+
+  testSpy(4, function (t, spy) {
+    function test (s) {
+      return s('hello', 'world')
+      .catch(function (value) {
+        t.equal(value, 'foo')
+        return 'bar'
+      })
+    }
+
+    var s = spy.rejects('foo')
+    test(s.promised)
+    .then(function (value) {
+      t.equal(value, 'bar')
+      t.equal(s.firstCall.args[0], 'hello')
+      t.equal(s.firstCall.args[1], 'world')
+    })
+  })
+
+  testSpy(4, function (t, spy) {
+    var err = new Error()
+    function test (s) {
+      return s('hello', 'world')
+      .catch(function (e) {
+        t.equal(e, err)
+        return 'bar'
+      })
+    }
+
+    var s = spy.rejects(err)
+    test(s.promised)
+    .then(function (value) {
+      t.equal(value, 'bar')
+      t.equal(s.firstCall.args[0], 'hello')
+      t.equal(s.firstCall.args[1], 'world')
+    })
+  })
+
+  function testSpy (planned, callback) {
+    t.test(function (t) {
+      t.plan(planned)
+      callback(t, sinon.spy())
+    })
+  }
+})
