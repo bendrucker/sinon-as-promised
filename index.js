@@ -11,7 +11,6 @@ function resolves (value) {
 }
 
 sinon.stub.resolves = resolves
-sinon.behavior.resolves = resolves
 
 function rejects (err) {
   if (typeof err === 'string') {
@@ -23,7 +22,6 @@ function rejects (err) {
 }
 
 sinon.stub.rejects = rejects
-sinon.behavior.rejects = rejects
 
 module.exports = function (_Promise_) {
   if (typeof _Promise_ !== 'function') {
