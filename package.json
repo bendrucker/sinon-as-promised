@@ -27,12 +27,12 @@
   },
   "devDependencies": {
     "bluebird": "^3.4.1",
-    "sinon": "1",
+    "sinon": "^2.0.0-pre",
     "standard": "^8.0.0",
     "tape": "^4.0.0"
   },
   "peerDependencies": {
-    "sinon": "1"
+    "sinon": "^2.0.0-pre"
   },
   "files": [
     "index.js",
