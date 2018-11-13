@@ -1,4 +1,4 @@
-sinon-as-promised [![Build Status](https://travis-ci.org/bendrucker/sinon-as-promised.svg?branch=master)](https://travis-ci.org/bendrucker/sinon-as-promised)
+sinon-as-promised [![Build Status](https://travis-ci.org/bendrucker/sinon-as-promised.svg?branch=master)](https://travis-ci.org/bendrucker/sinon-as-promised) [![Greenkeeper badge](https://badges.greenkeeper.io/bendrucker/sinon-as-promised.svg)](https://greenkeeper.io/)
 =================
 
 > Extend [Sinon](https://github.com/cjohansen/sinon.js) stubs with promise stubbing methods.
