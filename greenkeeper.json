@@ -1,0 +1,12 @@
+{
+  "groups": {
+    "default": {
+      "packages": [
+        "examples/angular/package.json",
+        "examples/bluebird/package.json",
+        "examples/node-browserify/package.json",
+        "package.json"
+      ]
+    }
+  }
+}
