@@ -23,8 +23,8 @@ describe('sinon-as-promised angular example', function () {
       fulfilled = true
       expect(value).to.equal('value')
     })
-    expect(fulfilled).to.be.false
+    expect(fulfilled).to.equal(false)
     $timeout.flush()
-    expect(fulfilled).to.be.true
+    expect(fulfilled).to.equal(true)
   })
 })
