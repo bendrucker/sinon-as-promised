@@ -38,9 +38,9 @@ test(function (t) {
       t.equal(value, 'foo')
       return stub()
     })
-    .then(function (value) {
-      t.equal(value, 'bar')
-    })
+      .then(function (value) {
+        t.equal(value, 'bar')
+      })
   })
 
   testStub(1, function (t, stub) {
@@ -59,10 +59,10 @@ test(function (t) {
       t.equal(e, err)
       return stub()
     })
-    .catch(function (err) {
-      t.ok(err instanceof Error)
-      t.equal(err.message, 'msg')
-    })
+      .catch(function (err) {
+        t.ok(err instanceof Error)
+        t.equal(err.message, 'msg')
+      })
   })
 
   function testStub (planned, callback) {
