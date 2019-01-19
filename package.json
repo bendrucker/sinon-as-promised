@@ -32,7 +32,7 @@
     "tape": "^4.0.0"
   },
   "peerDependencies": {
-    "sinon": "1"
+    "sinon": "^7.2.3"
   },
   "files": [
     "index.js",
