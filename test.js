@@ -65,6 +65,8 @@ test(function (t) {
       })
   })
 
+  t.end()
+
   function testStub (planned, callback) {
     t.test(function (t) {
       t.plan(planned)
