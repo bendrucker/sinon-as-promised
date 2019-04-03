@@ -4,7 +4,7 @@
     "test": "karma start --single-run"
   },
   "devDependencies": {
-    "bluebird": "~3.5.3",
+    "bluebird": "~3.5.4",
     "chai": "^4.2.0",
     "karma": "~4.0.0",
     "karma-browserify": "^6.0.0",
